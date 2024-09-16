@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Profile;
+use App\Subscription;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -50,7 +53,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'email','string','max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -61,12 +64,28 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create( array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $name = explode(" ",$data['name']);
+        
+        if(empty( $name[1])){
+           $user->profile()->create(['first_name' => $name[0], 'last_name' => $name[0]]);
+   
+        }
+        else{
+              $user->profile()->create(['first_name' => $name[0], 'last_name' => $name[1]]);
+
+        }
+      
+        $subscriber = new Subscription;
+        $subscriber->subscribeToPlan(1 , $user->id, 12);
+
+        return $user;
     }
 }

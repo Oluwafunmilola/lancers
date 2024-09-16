@@ -73,7 +73,7 @@
   <div class="container">
         <div class="clearfix mt-3">
             <div class="float-left">
-                <a href="" class="navbar-brand"><img src="https://res.cloudinary.com/sgnolebagabriel/image/upload/v1570531368/Lancers_evgrmc.png" alt="logo"></a>
+                <a href="{{ url('/') }}" class="navbar-brand"><img src="https://res.cloudinary.com/sgnolebagabriel/image/upload/v1570531368/Lancers_evgrmc.png" alt="logo"></a>
             </div>
             <div class="float-right">
 
@@ -83,9 +83,9 @@
             <div class="col-md-6 register">
                 <h2>Register to save your project and gain access to:</h2>
                 <ul class="list">
-                    <li><h5>- The document generator</h5></li>
-                    <li><h5>- Our project management features</h5></li>
-                    <li><h5>- Much more...</h5></li>
+                    <li><h5> The document generator</h5></li>
+                    <li><h5> Our project management features</h5></li>
+                    <li><h5> Much more...</h5></li>
                 </ul>
             </div>
             <div class="col-md-5 offset-md-1 signinform mt-5 pl-5 pr-5 pt-4 pb-4">
@@ -125,7 +125,7 @@
                     </div>
                     <div class="form-group">
                             <label for="my-password">Password Confirmation</label>
-                            <input id="password" class="form-control" name="password_confirmation" required autocomplete="new-password"> 
+                            <input id="password" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password"> 
                             <span id="pmessage" ></span>
                         </div>
                     <div class="clearfix">

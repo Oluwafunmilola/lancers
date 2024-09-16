@@ -12,7 +12,7 @@ class MigrationsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'run:migrations';
+    protected $signature = 'run:migrations {--seed}';
 
     /**
      * The console command description.
@@ -38,11 +38,20 @@ class MigrationsCommand extends Command
      */
     public function handle()
     {
+        echo "🗂 Migrating the database afresh, this might take a little while \n";
         Artisan::call('migrate:fresh');
+        echo "✔ Migrations complete \n";
 
         Artisan::call('subscriptions:table');
         Artisan::call('countriesandstates:table');
         Artisan::call('currencies:table');
-        Artisan::call('passport:install');
+
+        if($this->option('seed')){
+            echo "⏳ Seeding the database.. \n";
+            Artisan::call('db:seed');
+            echo "✔ Database seeded sucessfully \n";
+        }
+
+        echo "🎉 Time to rock, your database is all set";
     }
 }
